@@ -13,7 +13,7 @@
 #include "RtMidi.h"
 
 // Platform-dependent sleep routines.
-#if defined(__WINDOWS_MM__)
+#if defined(WIN32)
   #include <windows.h>
   #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
 #else // Unix variants
@@ -77,7 +77,7 @@ int main( int argc, char *argv[] )
   (void) signal(SIGINT, finish);
 
   // Periodically check input queue.
-  std::cout << "Reading MIDI from port ... quit with Ctrl-C.\n";
+  std::cout << "Reading MIDI from port " << midiin->getPortName() << " ... quit with Ctrl-C.\n";
   while ( !done ) {
     stamp = midiin->getMessage( &message );
     nBytes = message.size();
